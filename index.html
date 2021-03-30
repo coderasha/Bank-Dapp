@@ -1,0 +1,82 @@
+<html>
+<body>
+    <div>
+<input type="text" id= "amount">
+<p id="balance"></p>
+<button id = "deposit" > Deposit</button>
+<button id = "withdraw" > Withdraw</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.3.4/web3.min.js" integrity="sha512-TTGImODeszogiro9DUvleC9NJVnxO6M0+69nbM3YE9SYcVe4wZp2XYpELtcikuFZO9vjXNPyeoHAhS5DHzX1ZQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.slim.min.js" integrity="sha512-6ORWJX/LrnSjBzwefdNUyLCMTIsGoNP6NftMy2UAm1JBm6PRZCO1d7OHBStWpVFZLO+RerTvqX/Z9mBFfCJZ4A==" crossorigin="anonymous"></script>
+<script>
+var contract;
+$(document).ready(function()
+{
+    
+    const web3 = new Web3(window.ethereum);
+  
+    console.log(web3)
+       
+// web3 = new Web3(web3.currentProvider);
+var address = "0xFEb9C602Fd0F5E49860f6924e204E28e0a78902f";
+console.log(address)
+var abi = [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "balance",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "amt",
+          "type": "uint256"
+        }
+      ],
+      "name": "withdraw",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "amt",
+          "type": "uint256"
+        }
+      ],
+      "name": "deposit",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
+
+contract = new web3.eth.Contract(abi, address)
+console.log(contract)
+
+contract.methods.balance().call().then(function(bal){
+$("#balance").html(bal);
+})
+})
+
+
+
+</script>
+</body>
+</html>
